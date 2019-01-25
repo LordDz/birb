@@ -5,7 +5,7 @@ using UnityEngine;
 public class EyeLook : MonoBehaviour
 {
     public List<Sprite> listSprites;
-    public List<EyeCollision> listCollisions;
+    private EyeCollision[] listCollisions;
     public int currentIndex = 0;
     private SpriteRenderer spriteRenderer;
 
@@ -13,11 +13,11 @@ public class EyeLook : MonoBehaviour
     private float cooldownCurrent = 0f;
     private EyeCollision currentCollision;
     
-
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        listCollisions = GetComponentsInChildren<EyeCollision>();
         currentCollision = listCollisions[0];
     }
 
@@ -74,10 +74,10 @@ public class EyeLook : MonoBehaviour
                 Look(LookDirection.Right);
                 break;
             case 2:
-                Look(LookDirection.Left);
+                Look(LookDirection.Top);
                 break;
             case 3:
-                Look(LookDirection.Right);
+                Look(LookDirection.Bot);
                 break;
         }
     }
