@@ -15,11 +15,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private bool inHatchArea = false;
     private State state = State.NORMAL;
+    private Vector3 voidPosition;
+    private Vector3 memoryPosition;
 
     // Start is called before the first frame update
     void Start()
     {
        rb = GetComponent<Rigidbody>();
+       voidPosition = transform.position + new Vector3(0.0f, -10.0f, 0.0f);
     }
 
     void OnTriggerStay(Collider target)
@@ -43,10 +46,13 @@ public class PlayerController : MonoBehaviour
         if (active)
         {
             sittingOnEggLogic.SetActive(true);
+            memoryPosition = transform.position;
+            transform.position = voidPosition;
         }
         else
         {
             sittingOnEggLogic.SetActive(false);
+            transform.position = memoryPosition;
         }
     }
 

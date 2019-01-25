@@ -24,7 +24,7 @@ public class SittingOnEggLogic : MonoBehaviour
     void Start()
     {
         activePosition = transform.position;
-        inactivePosition = transform.position - new Vector3(0.0f, -10.0f, 0.0f);
+        inactivePosition = transform.position + new Vector3(0.0f, -10.0f, 0.0f);
         transform.position = inactivePosition;
     }
 
