@@ -35,6 +35,4 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-*.meta
-*.cs.meta
 *.swp
