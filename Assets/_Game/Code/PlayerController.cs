@@ -6,10 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 4.0f;
 
+    private Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+       rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -26,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
             translation *= movementSpeed * Time.deltaTime;
 
-            transform.Translate(translation);
+            rb.MovePosition(transform.position + translation);
         }
     }
 }
