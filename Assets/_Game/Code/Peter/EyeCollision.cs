@@ -25,17 +25,19 @@ public class EyeCollision : MonoBehaviour
     {
         rend.enabled = true;
         isActive = true;
+        this.GetComponent<Collider>().enabled = true;
     }
 
     public void StopLook()
     {
         rend.enabled = false;
         isActive = false;
+        this.GetComponent<Collider>().enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (isActive && other.tag == "Player")
         {
             //"Become angry"
             rend.material.color = new Color(1, 0, 0);
@@ -45,7 +47,7 @@ public class EyeCollision : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (isActive && other.tag == "Player")
         {
             PeterEatBehaviour.StopBecomeAngry();
             rend.material.color = new Color(0, 1, 0);

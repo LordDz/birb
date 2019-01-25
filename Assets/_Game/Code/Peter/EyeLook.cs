@@ -12,6 +12,7 @@ public class EyeLook : MonoBehaviour
     public float timeWait = 0.15f;
     private float cooldownCurrent = 0f;
     private EyeCollision currentCollision;
+    private bool shouldLook = true;
     
     // Start is called before the first frame update
     void Start()
@@ -24,12 +25,26 @@ public class EyeLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cooldownCurrent -= Time.deltaTime;
-        if (cooldownCurrent <= 0)
+        if (shouldLook)
         {
-            cooldownCurrent = timeWait;
-            LookRandom();
+            cooldownCurrent -= Time.deltaTime;
+            if (cooldownCurrent <= 0)
+            {
+                cooldownCurrent = timeWait;
+                LookRandom();
+            }
         }
+    }
+
+    public void StartLooking()
+    {
+        shouldLook = true;
+        cooldownCurrent = timeWait;
+    }
+
+    public void StopLooking()
+    {
+        shouldLook = false;
     }
 
     private void Look(LookDirection direction)
@@ -64,7 +79,6 @@ public class EyeLook : MonoBehaviour
 
     private void LookRandom()
     {
-
         switch (Random.Range(0, 4))
         {
             case 0:
