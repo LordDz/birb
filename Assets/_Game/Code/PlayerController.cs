@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     };
     public float movementSpeed = 4.0f;
     public SittingOnEggLogic sittingOnEggLogic;
+    public TransitionMovement sitOnEggTransition;
 
     private Rigidbody rb;
     private bool inHatchArea = false;
@@ -46,12 +47,14 @@ public class PlayerController : MonoBehaviour
         if (active)
         {
             sittingOnEggLogic.SetActive(true);
+            sitOnEggTransition.StartTransitionForward();
             memoryPosition = transform.position;
             transform.position = voidPosition;
         }
         else
         {
             sittingOnEggLogic.SetActive(false);
+            sitOnEggTransition.StartTransitionBackward();
             transform.position = memoryPosition;
         }
     }
