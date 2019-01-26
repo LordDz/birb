@@ -7,6 +7,7 @@ public class PeterEatBehaviour : MonoBehaviour
     // Start is called before the first frame update
     public float angerMeter = 0;
     public float angerKillLevel = 2f;
+    public bool IsAngry { get { return isAngry; } }
     private bool isAngry = false;
     private bool killMode = false;
     public AudioSource soundAngry;
@@ -56,12 +57,14 @@ public class PeterEatBehaviour : MonoBehaviour
         if (angerMeter >= angerKillLevel)
         {
             //KILL BIRB NAOW!
+            isAngry = true;
             StartKillBird();
         }
     }
 
     private void StartKillBird()
     {
+        //It's game over man, game over!
         killMode = true;
         soundKillMode.Play();
     }

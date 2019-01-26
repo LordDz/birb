@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EyeLook : MonoBehaviour
 {
+    private FlyManager flyManager;
+    private PeterEatBehaviour PeterEatBehaviour;
     public List<Sprite> listSprites;
     private EyeCollision[] listCollisions;
     public int currentIndex = 0;
@@ -18,13 +20,21 @@ public class EyeLook : MonoBehaviour
     private float cooldownIdle = 0f;
     public float timeWaitIdle = 1f;
 
+    public float totalMin = 4f;
+    public float totalMax = 10f;
+    private float timeTotalRange = 10f;
+    private float cooldownTotal = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
+        flyManager = GameObject.FindObjectOfType<FlyManager>();
+        PeterEatBehaviour = GetComponentInParent<PeterEatBehaviour>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         listCollisions = GetComponentsInChildren<EyeCollision>();
         currentCollision = listCollisions[0];
         spriteIdle = spriteRenderer.sprite;
+        timeTotalRange = Random.Range(totalMin, totalMax);
     }
 
     // Update is called once per frame
@@ -47,20 +57,33 @@ public class EyeLook : MonoBehaviour
                 cooldownCurrent = timeWait;
                 LookRandom();
             }
+
+            if (cooldownTotal < timeTotalRange && PeterEatBehaviour.IsAngry == false)
+            {
+                cooldownTotal += Time.deltaTime;
+                if (cooldownTotal >= timeTotalRange)
+                {
+                    IsDoneLooking();
+                }
+            }
         }
     }
 
     public void SetEnabled()
     {
-        cooldownIdle = timeWaitIdle;
+        cooldownTotal = 0;
+        timeTotalRange = Random.Range(totalMin, totalMax);
         shouldLook = false;
+        cooldownIdle = timeWaitIdle;
         spriteRenderer.sprite = spriteIdle;
+        spriteRenderer.enabled = true;
     }
 
     public void StartLooking()
     {
         shouldLook = true;
         cooldownCurrent = timeWait;
+        LookRandom();
     }
 
     public void StopLooking()
@@ -93,11 +116,6 @@ public class EyeLook : MonoBehaviour
         currentCollision.StartLook();
     }
 
-    private void LookShuffle()
-    {
-        
-    }
-
     private void LookRandom()
     {
         switch (Random.Range(0, 4))
@@ -115,5 +133,16 @@ public class EyeLook : MonoBehaviour
                 Look(LookDirection.Bot);
                 break;
         }
+    }
+
+    private void IsDoneLooking()
+    {
+        StopLooking();
+        foreach (var eyeCollision in listCollisions)
+        {
+            eyeCollision.StopLook();
+        }
+        spriteRenderer.enabled = false;
+        flyManager.DoNewFlyBy();
     }
 }

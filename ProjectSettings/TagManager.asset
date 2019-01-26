@@ -7,6 +7,7 @@ TagManager:
   - House
   - Egg
   - Hatch Area
+  - Flyer
   layers:
   - Default
   - TransparentFX
