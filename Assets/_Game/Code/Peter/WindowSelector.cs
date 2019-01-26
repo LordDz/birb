@@ -14,12 +14,14 @@ public class WindowSelector : MonoBehaviour
     private bool isSelectingPeter = false;
     private CameraShake cameraShake;
     private Prop[] listProps;
+    private PlayerController player;
 
     void Start()
     {
         cameraShake = GameObject.FindObjectOfType<CameraShake>();
         listPeters = GameObject.FindObjectsOfType<PeterMain>();
         listProps = GameObject.FindObjectsOfType<Prop>();
+        player = GameObject.FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -72,6 +74,7 @@ public class WindowSelector : MonoBehaviour
 
     public void HideAllCoverFromProps()
     {
+        player.SetCovered(false);
         for (var i = 0; i < listProps.Length; i++)
         {
             listProps[i].HideAllCovers();

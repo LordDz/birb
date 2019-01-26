@@ -5,7 +5,7 @@ using UnityEngine;
 public class CoverPos : MonoBehaviour
 {
     private WindowSelector windowSelector;
-    public PeterDirection seenfromDirection;
+    public PeterDirection coveredFromDirection;
 
     private PlayerController player;
 
@@ -33,11 +33,7 @@ public class CoverPos : MonoBehaviour
         if (other.tag == "Player")
         {
             var dir = windowSelector.GetPeterSees();
-            if (dir != seenfromDirection)
-            {
-                other.GetComponent<PlayerController>();
-                player.SetCovered(true);
-            }
+            player.SetCovered(true);
         }
     }
 
@@ -46,11 +42,7 @@ public class CoverPos : MonoBehaviour
         if (other.tag == "Player")
         {
             var dir = windowSelector.GetPeterSees();
-            if (dir == seenfromDirection)
-            {
-                other.GetComponent<PlayerController>();
-                player.SetCovered(false);
-            }
+            player.SetCovered(false);
         }
     }
 }

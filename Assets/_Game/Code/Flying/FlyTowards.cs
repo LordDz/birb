@@ -7,7 +7,7 @@ public class FlyTowards : MonoBehaviour
     public SpawnPos FlyFrom;
     public SpawnPos FlyTo;
     private bool isFlying = false;
-    private float speed = 30f;
+    public float speed = 60f;
     private AudioSource soundFly;
 
     public List<AudioClip> listFlySounds;
@@ -27,7 +27,8 @@ public class FlyTowards : MonoBehaviour
     {
         if (isFlying)
         {
-            transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), 
+            
+            transform.position = Vector3.MoveTowards(transform.position, 
                 FlyTo.transform.position, speed * Time.deltaTime);
 
             var distance = Vector2.Distance(new Vector2(transform.position.x, transform.position.y),
