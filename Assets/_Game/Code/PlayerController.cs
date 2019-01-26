@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour
     {
         NORMAL,
         SITTING_ON_EGG,
+        FINISHED,
         TRANSITION_TO_NORMAL,
-        TRANSITION_TO_SITTING_ON_EGG
+        TRANSITION_TO_SITTING_ON_EGG,
+        TRANSITION_TO_FINISHED
     };
     public float movementSpeed = 4.0f;
     public ParentToHidables sittingOnEggHidables;
@@ -19,12 +21,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private bool inHatchArea = false;
     private State state = State.NORMAL;
+    private EggLogic egg;
 
     // Start is called before the first frame update
     void Start()
     {
        rb = GetComponent<Rigidbody>();
        hidables = GetComponent<ParentToHidables>();
+       egg = GameObject.FindWithTag("Egg").GetComponent<EggLogic>();
     }
 
     void OnTriggerStay(Collider target)
@@ -43,20 +47,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SitOnEgg(bool active)
+    void SitOnEgg()
     {
-        if (active)
-        {
-            state = State.TRANSITION_TO_SITTING_ON_EGG;
-            hidables.HideAll();
-            sitOnEggTransition.StartTransitionForward();
-        }
-        else
-        {
-            state = State.TRANSITION_TO_NORMAL;
-            sittingOnEggHidables.HideAll();
-            sitOnEggTransition.StartTransitionBackward();
-        }
+        state = State.TRANSITION_TO_SITTING_ON_EGG;
+        hidables.HideAll();
+        sitOnEggTransition.StartTransitionForward();
+    }
+
+    void JumpOffEgg()
+    {
+        state = State.TRANSITION_TO_NORMAL;
+        sittingOnEggHidables.HideAll();
+        sitOnEggTransition.StartTransitionBackward();
+    }
+
+    void HatchEgg()
+    {
+        state = State.TRANSITION_TO_FINISHED;
+        sittingOnEggHidables.HideAll();
+        transform.position = egg.transform.position - new Vector3(2.0f, 0.0f, 0.0f);
+        sitOnEggTransition.StartTransitionBackward();
     }
 
     void UpdateNormal()
@@ -78,7 +88,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Action"))
             {
-                SitOnEgg(true);
+                SitOnEgg();
             }
         }
     }
@@ -87,8 +97,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Action"))
         {
-            state = State.NORMAL;
-            SitOnEgg(false);
+            JumpOffEgg();
+        }
+        egg.UpdateHatchTimer();
+        if (egg.HasHatched())
+        {
+            HatchEgg();
         }
     }
 
@@ -116,6 +130,14 @@ public class PlayerController : MonoBehaviour
             if (sitOnEggTransition.IsFinished())
             {
                 state = State.NORMAL;
+                hidables.UnhideAll();
+            }
+        }
+        else if (state == State.TRANSITION_TO_FINISHED)
+        {
+            if (sitOnEggTransition.IsFinished())
+            {
+                state = State.FINISHED;
                 hidables.UnhideAll();
             }
         }
