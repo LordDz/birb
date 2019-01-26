@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Pickupable itemInHand;
     private Pickupable itemAbleToPickup;
 
+
     private bool isCovered = false;
 
     public bool IsCovered { get => isCovered; private set => isCovered = value; }
@@ -223,7 +224,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetCovered(bool covered)
     {
-        this.IsCovered = true;
+        this.IsCovered = covered;
 
         if (covered)
         {
@@ -235,5 +236,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("NOT COVERED");
             sprite.material.color = new Color(1f, 1f, 1f);
         }
+    }
+
+    public void SetDead(bool dead)
+    {
+        this.gameObject.SetActive(false);
     }
 }
