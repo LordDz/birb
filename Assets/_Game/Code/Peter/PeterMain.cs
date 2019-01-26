@@ -7,6 +7,7 @@ public class PeterMain : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip clipInWindow;
     private EyeLook eyeLook;
+    public PeterDirection SeeDirection;
 
     // Start is called before the first frame update
     void Start()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnPosGroup : MonoBehaviour
 {
+    public bool ToLeft = false;
     public SpawnPos FlyFrom;
     public SpawnPos FlyTo;
     // Start is called before the first frame update

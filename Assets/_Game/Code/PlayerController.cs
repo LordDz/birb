@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public ParentToHidables sittingOnEggHidables;
     public TransitionMovement sitOnEggTransition;
     public Transform sprite;
+    private SpriteRenderer rendSprite;
 
     private float walkCycle = 0.0f;
 
@@ -26,12 +27,16 @@ public class PlayerController : MonoBehaviour
     private State state = State.NORMAL;
     private EggLogic egg;
 
+    private bool isCovered = false;
+    public bool IsCovered { get => isCovered; private set => isCovered = value; }
+
     // Start is called before the first frame update
     void Start()
     {
-       rb = GetComponent<Rigidbody>();
-       hidables = GetComponent<ParentToHidables>();
-       egg = GameObject.FindWithTag("Egg").GetComponent<EggLogic>();
+        rb = GetComponent<Rigidbody>();
+        hidables = GetComponent<ParentToHidables>();
+        egg = GameObject.FindWithTag("Egg").GetComponent<EggLogic>();
+        rendSprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     void OnTriggerStay(Collider target)
@@ -157,6 +162,19 @@ public class PlayerController : MonoBehaviour
                 state = State.FINISHED;
                 hidables.UnhideAll();
             }
+        }
+    }
+
+    public void SetCovered(bool covered)
+    {
+        this.isCovered = covered;
+        if (covered)
+        {
+            rendSprite.material.color = new Color(0.1f, 0.1f, 0.1f);
+        }
+        else
+        {
+            rendSprite.material.color = new Color(1f, 1f, 1f);
         }
     }
 }

@@ -13,11 +13,13 @@ public class WindowSelector : MonoBehaviour
 
     private bool isSelectingPeter = false;
     private CameraShake cameraShake;
+    private Prop[] listProps;
 
     void Start()
     {
         cameraShake = GameObject.FindObjectOfType<CameraShake>();
         listPeters = GameObject.FindObjectsOfType<PeterMain>();
+        listProps = GameObject.FindObjectsOfType<Prop>();
     }
 
     // Update is called once per frame
@@ -61,6 +63,23 @@ public class WindowSelector : MonoBehaviour
         peterCurrent = listPeters[Random.Range(0, listPeters.Length - 1)];
         peterCurrent.GetComponent<Transform>().gameObject.SetActive(true);
         peterCurrent.SetEnabled();
+        for (var i = 0; i < listProps.Length; i++)
+        {
+            listProps[i].SetPeterNowLooksFromHere(peterCurrent.SeeDirection);
+        }
         cameraShake.StopShake();
+    }
+
+    public void HideAllCoverFromProps()
+    {
+        for (var i = 0; i < listProps.Length; i++)
+        {
+            listProps[i].HideAllCovers();
+        }
+    }
+
+    public PeterDirection GetPeterSees()
+    {
+        return peterCurrent.SeeDirection;
     }
 }

@@ -56,8 +56,9 @@ public class FlyManager : MonoBehaviour
     public void DoNewFlyBy()
     {
         listSpawns = listFlyGroups[Random.Range(0, listFlyGroups.Length - 1)].GetComponentsInChildren<SpawnPosGroup>();
-        flyBird.SpawnAtStart(listSpawns[0].FlyFrom, listSpawns[0].FlyTo);
+        flyBird.SpawnAtStart(listSpawns[0].FlyFrom, listSpawns[0].FlyTo, listSpawns[0].ToLeft);
         roundCooldown = timePerRound;
+        WindowSelector.HideAllCoverFromProps();
     }
 
     public void BirdHasReachedEnd()
@@ -76,7 +77,7 @@ public class FlyManager : MonoBehaviour
 
     private void NextBird()
     {
-        flyBird.SpawnAtStart(listSpawns[flyIndex].FlyFrom, listSpawns[flyIndex].FlyTo);
+        flyBird.SpawnAtStart(listSpawns[flyIndex].FlyFrom, listSpawns[flyIndex].FlyTo, listSpawns[flyIndex].ToLeft);
         flyBird.StartFlying();
     }
 }

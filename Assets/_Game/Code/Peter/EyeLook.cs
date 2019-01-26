@@ -24,6 +24,8 @@ public class EyeLook : MonoBehaviour
     public float totalMax = 10f;
     private float timeTotalRange = 10f;
     private float cooldownTotal = 0f;
+    public Material materialOk;
+    public Material materialDetected;
 
     // Start is called before the first frame update
     void Start()

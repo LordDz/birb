@@ -7,15 +7,19 @@ public class FlyTowards : MonoBehaviour
     public SpawnPos FlyFrom;
     public SpawnPos FlyTo;
     private bool isFlying = false;
-    private float speed = 10f;
+    private float speed = 30f;
     private AudioSource soundFly;
+
+    public List<AudioClip> listFlySounds;
     private FlyManager flyManager;
+    SpriteRenderer rend;
 
     // Start is called before the first frame update
     void Start()
     {
         soundFly = GetComponent<AudioSource>();
         flyManager = GetComponentInParent<FlyManager>();
+        rend = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -36,18 +40,28 @@ public class FlyTowards : MonoBehaviour
         }
     }
 
-    public void SpawnAtStart(SpawnPos flyFrom, SpawnPos flyTo)
+    public void SpawnAtStart(SpawnPos flyFrom, SpawnPos flyTo, bool toLeft)
     {
         this.FlyFrom = flyFrom;
         this.FlyTo = flyTo;
+        if (toLeft)
+        {
+            this.rend.flipX = true;
+        }
+        else
+        {
+            this.rend.flipX = false;
+        }
         this.transform.position = FlyFrom.transform.position;
     }
 
     public void StartFlying()
     {
         isFlying = true;
-        if (soundFly != null)
+        var sound = listFlySounds[Random.Range(0, listFlySounds.Count - 1)];
+        if (sound != null)
         {
+            soundFly.clip = sound;
             soundFly.Play();
         }
     }
