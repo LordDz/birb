@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer sprite;
     private Pickupable itemInHand;
     private Pickupable itemAbleToPickup;
+    private GameObject stoveAbleToUse;
 
     private bool isCovered = false;
 
@@ -44,11 +45,23 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider target)
     {
+        itemAbleToPickup = null;
         if (target.tag == "Pickupable")
         {
-            itemAbleToPickup = target.gameObject.GetComponent<Pickupable>();
+            if (itemInHand == null)
+            {
+                Pickupable item = target.gameObject.GetComponent<Pickupable>();
+                if (!item.HasOwner())
+                {
+                    itemAbleToPickup = item;
+                }
+            }
         }
-        if (target.tag == "Hatch Area")
+        else if (target.tag == "Stove")
+        {
+            stoveAbleToUse = target.gameObject;
+        }
+        else if (target.tag == "Hatch Area")
         {
             inHatchArea = true;
         }
@@ -63,7 +76,11 @@ public class PlayerController : MonoBehaviour
                 itemAbleToPickup = null;
             }
         }
-        if (target.tag == "Hatch Area")
+        else if (target.tag == "Stove")
+        {
+            stoveAbleToUse = null;
+        }
+        else if (target.tag == "Hatch Area")
         {
             inHatchArea = false;
         }
@@ -74,7 +91,7 @@ public class PlayerController : MonoBehaviour
         walkCycle = 0.0f;
         spriteTransform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         state = State.TRANSITION_TO_SITTING_ON_EGG;
-        itemInHand = null;
+        ReleaseItemInHand();
         hidables.HideAll();
         sitOnEggTransition.StartTransitionForward();
     }
@@ -158,23 +175,80 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void ReleaseItemInHand()
+    {
+        if (itemInHand != null)
+        {
+            itemInHand.UnsetOwner();
+            itemInHand = null;
+        }
+    }
+
+    void PutItemInContainer(GameObject gameObject)
+    {
+        TowelContainer[] towelContainers = gameObject.GetComponentsInChildren<TowelContainer>();
+        foreach (TowelContainer towelContainer in towelContainers)
+        {
+            if (!towelContainer.HasItem())
+            {
+                towelContainer.Give(itemInHand);
+                itemInHand = null;
+                return;
+            }
+        }
+        ReleaseItemInHand();
+    }
+
+    void GetItemFromContainer(GameObject gameObject)
+    {
+        TowelContainer[] towelContainers = gameObject.GetComponentsInChildren<TowelContainer>();
+        foreach (TowelContainer towelContainer in towelContainers)
+        {
+            if (towelContainer.HasItem())
+            {
+                itemInHand = towelContainer.Take();
+                break;
+            }
+        }
+    }
+
     void UpdateItemInHandPosition()
     {
-        if (itemInHand)
+        if (itemInHand != null)
         {
             itemInHand.Follow(
                     spriteTransform.position
                     + new Vector3(0.0f, 0.5f, -0.25f));
-            if (Input.GetButtonDown("Pick Up"))
-            {
-                itemInHand = null;
-            }
         }
-        else if (itemAbleToPickup)
+        if (Input.GetButtonDown("Pick Up"))
         {
-            if (Input.GetButtonDown("Pick Up"))
+            if (itemInHand != null)
             {
+                if (inHatchArea)
+                {
+                    PutItemInContainer(egg.gameObject);
+                }
+                else if (stoveAbleToUse != null)
+                {
+                    PutItemInContainer(stoveAbleToUse);
+                }
+                else
+                {
+                    ReleaseItemInHand();
+                }
+            }
+            else if (itemAbleToPickup != null)
+            {
+                itemAbleToPickup.SetOwner();
                 itemInHand = itemAbleToPickup;
+            }
+            else if (inHatchArea)
+            {
+                GetItemFromContainer(egg.gameObject);
+            }
+            else if (stoveAbleToUse != null)
+            {
+                GetItemFromContainer(stoveAbleToUse);
             }
         }
     }

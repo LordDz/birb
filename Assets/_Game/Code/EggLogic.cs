@@ -25,9 +25,23 @@ public class EggLogic : MonoBehaviour
         startTime = timeToHatch;
     }
 
+    float HatchTimerMultiplier()
+    {
+        float multiplier = 1.0f;
+        foreach (TowelContainer towelContainer in GetComponentsInChildren<TowelContainer>())
+        {
+            if (towelContainer.HasItem())
+            {
+                multiplier *= 1.0f + towelContainer.GetHeat() * 0.5f + 0.1f;
+            }
+        }
+        return multiplier;
+    }
+
     public void UpdateHatchTimer()
     {
-        timeToHatch -= Time.deltaTime;
+        float multiplier = HatchTimerMultiplier();
+        timeToHatch -= Time.deltaTime * multiplier;
         if (HasHatched())
         {
             eggHidable.HideAll();

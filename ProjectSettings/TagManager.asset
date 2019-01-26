@@ -10,6 +10,7 @@ TagManager:
   - Flyer
   - Egg Shell
   - Pickupable
+  - Stove
   layers:
   - Default
   - TransparentFX
