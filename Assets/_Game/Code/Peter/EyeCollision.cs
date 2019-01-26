@@ -12,7 +12,7 @@ public class EyeCollision : MonoBehaviour
     {
         rend = GetComponent<MeshRenderer>();
         rend.enabled = false;
-        PeterEatBehaviour = FindObjectOfType<PeterEatBehaviour>();
+        PeterEatBehaviour = GetComponentInParent<PeterEatBehaviour>();
     }
 
     // Update is called once per frame
