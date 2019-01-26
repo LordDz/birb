@@ -9,6 +9,7 @@ public class EyeCollision : MonoBehaviour
     private MeshRenderer rend;
     private bool isActive = false;
     private EyeLook eyeLook;
+    private PlayerController player;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class EyeCollision : MonoBehaviour
         rend.enabled = false;
         PeterEatBehaviour = GetComponentInParent<PeterEatBehaviour>();
         eyeLook = GetComponentInParent<EyeLook>();
+        player = GameObject.FindObjectOfType<PlayerController>();
         StopLook();
     }
 
@@ -42,18 +44,20 @@ public class EyeCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (isActive && other.tag == "Player")
         {
+            Debug.Log("aaaarrr ! " + other.tag);
+
             //"Become angry"
-            var player = other.GetComponent<PlayerController>();
-            if (player != null)
+            
+            if (player.IsCovered == false)
             {
-                if (player.IsCovered == false)
-                {
-                    rend.material = eyeLook.materialDetected;
-                    PeterEatBehaviour.StartBecomeAngry();
-                }
+                rend.material = eyeLook.materialDetected;
+                Debug.Log("Detected Player!");
+                PeterEatBehaviour.StartBecomeAngry();
             }
+            
         }
     }
 

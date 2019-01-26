@@ -13,12 +13,15 @@ public class PeterEatBehaviour : MonoBehaviour
     public AudioSource soundAngry;
     public AudioSource soundChill;
     public AudioSource soundKillMode;
+    private PlayerController player;
+    public LoseShow loseShow;
 
     private EyeLook eyeLook;
 
     void Start()
     {
         eyeLook = GetComponentInChildren<EyeLook>();
+        player = GameObject.FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -67,5 +70,10 @@ public class PeterEatBehaviour : MonoBehaviour
         //It's game over man, game over!
         killMode = true;
         soundKillMode.Play();
+        player.SetDead(true);
+        loseShow.ShowLose();
+        
+        this.gameObject.SetActive(false);
+
     }
 }
