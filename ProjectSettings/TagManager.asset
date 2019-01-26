@@ -8,6 +8,8 @@ TagManager:
   - Egg
   - Hatch Area
   - Flyer
+  - Egg Shell
+  - Pickupable
   layers:
   - Default
   - TransparentFX

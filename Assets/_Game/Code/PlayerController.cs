@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private State state = State.NORMAL;
     private EggLogic egg;
     private SpriteRenderer sprite;
+    private Pickupable itemInHand;
+    private Pickupable itemAbleToPickup;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +40,10 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider target)
     {
+        if (target.tag == "Pickupable")
+        {
+            itemAbleToPickup = target.gameObject.GetComponent<Pickupable>();
+        }
         if (target.tag == "Hatch Area")
         {
             inHatchArea = true;
@@ -46,6 +52,13 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerExit(Collider target)
     {
+        if (target.tag == "Pickupable")
+        {
+            if (target.gameObject == itemAbleToPickup)
+            {
+                itemAbleToPickup = null;
+            }
+        }
         if (target.tag == "Hatch Area")
         {
             inHatchArea = false;
@@ -54,7 +67,10 @@ public class PlayerController : MonoBehaviour
 
     void SitOnEgg()
     {
+        walkCycle = 0.0f;
+        spriteTransform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         state = State.TRANSITION_TO_SITTING_ON_EGG;
+        itemInHand = null;
         hidables.HideAll();
         sitOnEggTransition.StartTransitionForward();
     }
@@ -70,7 +86,10 @@ public class PlayerController : MonoBehaviour
     {
         state = State.TRANSITION_TO_FINISHED;
         sittingOnEggHidables.HideAll();
-        transform.position = egg.transform.position - new Vector3(2.0f, 0.0f, 0.0f);
+        transform.position = new Vector3(
+                egg.transform.position.x - 2.0f,
+                0.0f,
+                egg.transform.position.z + 1.0f);
         sitOnEggTransition.StartTransitionBackward();
     }
 
@@ -119,6 +138,7 @@ public class PlayerController : MonoBehaviour
                 SitOnEgg();
             }
         }
+        UpdateItemInHandPosition();
     }
 
     void UpdateSitOnEgg()
@@ -131,6 +151,27 @@ public class PlayerController : MonoBehaviour
         if (egg.HasHatched())
         {
             HatchEgg();
+        }
+    }
+
+    void UpdateItemInHandPosition()
+    {
+        if (itemInHand)
+        {
+            itemInHand.Follow(
+                    spriteTransform.position
+                    + new Vector3(0.0f, 0.5f, -0.25f));
+            if (Input.GetButtonDown("Pick Up"))
+            {
+                itemInHand = null;
+            }
+        }
+        else if (itemAbleToPickup)
+        {
+            if (Input.GetButtonDown("Pick Up"))
+            {
+                itemInHand = itemAbleToPickup;
+            }
         }
     }
 
