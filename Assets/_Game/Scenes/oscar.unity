@@ -112,6 +112,85 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &31199624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 31199625}
+  - component: {fileID: 31199626}
+  m_Layer: 0
+  m_Name: Jumping Mario
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &31199625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31199624}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.66, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 743112786}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &31199626
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31199624}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 113634bc35bd64d4dafc678c57751c6a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.24, y: 2.24}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &117805809
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418965432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.93, z: -1.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1545721084}
@@ -283,6 +362,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09802d6d60d1f44b1a50fb30549b29a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidingAtStart: 1
+--- !u!1 &743112785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 743112786}
+  - component: {fileID: 743112787}
+  m_Layer: 0
+  m_Name: Transition Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &743112786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743112785}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 31199625}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &743112787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743112785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7f7d797314d45dcbb786a3c78b10e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionSpeed: 5
+  positionStart: {fileID: 1929597711}
+  positionEnd: {fileID: 418965433}
 --- !u!1 &1242544113
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +479,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 60, y: 10, z: 0}
+--- !u!1 &1356316403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4003702725368954366, guid: e657f4b2d995d4ce8b5b369ed44601c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4003702726864326418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1356316407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356316403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d01cc545aad284d5d9c8d7886074f9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1502110219 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4003702726961919211, guid: e657f4b2d995d4ce8b5b369ed44601c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4003702726864326418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1502110222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502110219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d01cc545aad284d5d9c8d7886074f9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1545721083
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1545721084}
   - component: {fileID: 1545721085}
+  - component: {fileID: 1545721086}
   m_Layer: 0
   m_Name: Sitting Mario
   m_TagString: Untagged
@@ -377,7 +541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545721083}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.93, z: -1.24}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 418965433}
@@ -431,12 +595,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1545721086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545721083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d01cc545aad284d5d9c8d7886074f9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1870993119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4742572092976491272, guid: 6c8e4ceca37d442c4819311b8a8a9d0b,
     type: 3}
   m_PrefabInstance: {fileID: 4742572091240250839}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1929597707 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4003702725373752988, guid: e657f4b2d995d4ce8b5b369ed44601c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4003702726864326418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1929597711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4003702725373752962, guid: e657f4b2d995d4ce8b5b369ed44601c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4003702726864326418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1929597712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929597707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09802d6d60d1f44b1a50fb30549b29a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hidingAtStart: 0
 --- !u!1001 &352112155156062336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -576,6 +777,16 @@ PrefabInstance:
     - target: {fileID: 4003702725373752960, guid: e657f4b2d995d4ce8b5b369ed44601c4,
         type: 3}
       propertyPath: sittingOnEggLogic
+      value: 
+      objectReference: {fileID: 418965434}
+    - target: {fileID: 4003702725373752960, guid: e657f4b2d995d4ce8b5b369ed44601c4,
+        type: 3}
+      propertyPath: sitOnEggTransition
+      value: 
+      objectReference: {fileID: 743112787}
+    - target: {fileID: 4003702725373752960, guid: e657f4b2d995d4ce8b5b369ed44601c4,
+        type: 3}
+      propertyPath: sittingOnEggHidables
       value: 
       objectReference: {fileID: 418965434}
     m_RemovedComponents: []
