@@ -17,6 +17,12 @@ public class TransitionMovement : MonoBehaviour
 
     private State state = State.FINISHED;
     private float transitionAlpha = 0.0f;
+    private SpriteRenderer sprite;
+
+    void Start()
+    {
+        sprite = GetComponentInChildren<SpriteRenderer>();
+    }
 
     public void StartTransitionForward()
     {
@@ -42,7 +48,7 @@ public class TransitionMovement : MonoBehaviour
 
     void Transition()
     {
-        Vector3 topPosition = (positionEnd.position + positionStart.position) / 2 + new Vector3(0.0f, 2.0f, 0.0f);
+        Vector3 topPosition = (positionEnd.position + positionStart.position) / 2 + new Vector3(0.0f, 2.5f, 0.0f);
         transform.position = QuadraticBezier(
                 positionStart.position,
                 topPosition,
@@ -61,6 +67,7 @@ public class TransitionMovement : MonoBehaviour
         {
             if (state == State.FORWARD)
             {
+                sprite.flipX = positionEnd.position.x > transform.position.x;
                 transitionAlpha += transitionSpeed * Time.deltaTime;
                 if (transitionAlpha > 1.0f)
                 {
@@ -69,6 +76,7 @@ public class TransitionMovement : MonoBehaviour
             }
             else if (state == State.BACKWARD)
             {
+                sprite.flipX = positionStart.position.x > transform.position.x;
                 transitionAlpha -= transitionSpeed * Time.deltaTime;
                 if (transitionAlpha < 0.0f)
                 {
