@@ -5,6 +5,7 @@ using UnityEngine;
 public class FlyManager : MonoBehaviour
 {
     private SpawnPosGroup[] listSpawns;
+    private SpawnFlyGroup[] listFlyGroups;
 
     private FlyTowards flyBird;
     private int flyIndex = 0;
@@ -19,7 +20,8 @@ public class FlyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        listSpawns = GetComponentsInChildren<SpawnPosGroup>();
+        listFlyGroups = GetComponentsInChildren<SpawnFlyGroup>();
+        listSpawns = listFlyGroups[0].GetComponentsInChildren<SpawnPosGroup>();
         WindowSelector = GameObject.FindObjectOfType<WindowSelector>();
     }
 
@@ -53,6 +55,7 @@ public class FlyManager : MonoBehaviour
 
     public void DoNewFlyBy()
     {
+        listSpawns = listFlyGroups[Random.Range(0, listFlyGroups.Length - 1)].GetComponentsInChildren<SpawnPosGroup>();
         flyBird.SpawnAtStart(listSpawns[0].FlyFrom, listSpawns[0].FlyTo);
         roundCooldown = timePerRound;
     }
