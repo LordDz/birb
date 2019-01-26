@@ -7,22 +7,24 @@ public class PlayerController : MonoBehaviour
     enum State
     {
         NORMAL,
-        HATCHING
+        SITTING_ON_EGG,
+        TRANSITION_TO_NORMAL,
+        TRANSITION_TO_SITTING_ON_EGG
     };
     public float movementSpeed = 4.0f;
-    public SittingOnEggLogic sittingOnEggLogic;
+    public ParentToHidables sittingOnEggHidables;
+    public TransitionMovement sitOnEggTransition;
 
+    private ParentToHidables hidables;
     private Rigidbody rb;
     private bool inHatchArea = false;
     private State state = State.NORMAL;
-    private Vector3 voidPosition;
-    private Vector3 memoryPosition;
 
     // Start is called before the first frame update
     void Start()
     {
        rb = GetComponent<Rigidbody>();
-       voidPosition = transform.position + new Vector3(0.0f, -10.0f, 0.0f);
+       hidables = GetComponent<ParentToHidables>();
     }
 
     void OnTriggerStay(Collider target)
@@ -45,14 +47,15 @@ public class PlayerController : MonoBehaviour
     {
         if (active)
         {
-            sittingOnEggLogic.SetActive(true);
-            memoryPosition = transform.position;
-            transform.position = voidPosition;
+            state = State.TRANSITION_TO_SITTING_ON_EGG;
+            hidables.HideAll();
+            sitOnEggTransition.StartTransitionForward();
         }
         else
         {
-            sittingOnEggLogic.SetActive(false);
-            transform.position = memoryPosition;
+            state = State.TRANSITION_TO_NORMAL;
+            sittingOnEggHidables.HideAll();
+            sitOnEggTransition.StartTransitionBackward();
         }
     }
 
@@ -75,13 +78,12 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Action"))
             {
-                state = State.HATCHING;
                 SitOnEgg(true);
             }
         }
     }
 
-    void UpdateHatching()
+    void UpdateSitOnEgg()
     {
         if (Input.GetButtonDown("Action"))
         {
@@ -97,9 +99,25 @@ public class PlayerController : MonoBehaviour
         {
             UpdateNormal();
         }
-        else if (state == State.HATCHING)
+        else if (state == State.SITTING_ON_EGG)
         {
-            UpdateHatching();
+            UpdateSitOnEgg();
+        }
+        else if (state == State.TRANSITION_TO_SITTING_ON_EGG)
+        {
+            if (sitOnEggTransition.IsFinished())
+            {
+                state = State.SITTING_ON_EGG;
+                sittingOnEggHidables.UnhideAll();
+            }
+        }
+        else if (state == State.TRANSITION_TO_NORMAL)
+        {
+            if (sitOnEggTransition.IsFinished())
+            {
+                state = State.NORMAL;
+                hidables.UnhideAll();
+            }
         }
     }
 }
