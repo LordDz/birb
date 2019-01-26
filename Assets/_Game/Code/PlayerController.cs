@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     private Pickupable itemInHand;
     private Pickupable itemAbleToPickup;
 
+    private bool isCovered = false;
+
+    public bool IsCovered { get => isCovered; private set => isCovered = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -214,6 +218,20 @@ public class PlayerController : MonoBehaviour
                 state = State.FINISHED;
                 hidables.UnhideAll();
             }
+        }
+    }
+
+    public void SetCovered(bool covered)
+    {
+        this.IsCovered = true;
+
+        if (covered)
+        {
+            sprite.material.color = new Color(0.1f, 0.1f, 0.1f);
+        }
+        else
+        {
+            sprite.material.color = new Color(1f, 1f, 1f);
         }
     }
 }
