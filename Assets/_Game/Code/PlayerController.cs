@@ -301,10 +301,12 @@ public class PlayerController : MonoBehaviour
 
         if (covered)
         {
+            Debug.Log("COVERED");
             sprite.material.color = new Color(0.1f, 0.1f, 0.1f);
         }
         else
         {
+            Debug.Log("NOT COVERED");
             sprite.material.color = new Color(1f, 1f, 1f);
         }
     }

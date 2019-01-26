@@ -26,6 +26,7 @@ public class EyeLook : MonoBehaviour
     private float cooldownTotal = 0f;
     public Material materialOk;
     public Material materialDetected;
+    public AudioSource soundDoneLooking;
 
     // Start is called before the first frame update
     void Start()
@@ -139,6 +140,7 @@ public class EyeLook : MonoBehaviour
 
     private void IsDoneLooking()
     {
+        soundDoneLooking.Play();
         StopLooking();
         foreach (var eyeCollision in listCollisions)
         {
