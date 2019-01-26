@@ -32,7 +32,7 @@ public class EggLogic : MonoBehaviour
         {
             if (towelContainer.HasItem())
             {
-                multiplier *= 1.0f + towelContainer.GetHeat() * 0.5f + 0.1f;
+                multiplier *= 1.0f + towelContainer.GetHeat() * 0.9f + 0.1f;
             }
         }
         return multiplier;
