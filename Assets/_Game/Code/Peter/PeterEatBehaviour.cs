@@ -13,9 +13,11 @@ public class PeterEatBehaviour : MonoBehaviour
     public AudioSource soundChill;
     public AudioSource soundKillMode;
 
+    private EyeLook eyeLook;
+
     void Start()
     {
-        
+        eyeLook = GetComponentInChildren<EyeLook>();
     }
 
     // Update is called once per frame
@@ -31,6 +33,7 @@ public class PeterEatBehaviour : MonoBehaviour
             {
                 angerMeter += Time.deltaTime;
             }
+            CheckAnger();
         }
     }
 
@@ -38,12 +41,14 @@ public class PeterEatBehaviour : MonoBehaviour
     {
         soundAngry.Play();
         isAngry = true;
+        eyeLook.StopLooking();
     }
 
     public void StopBecomeAngry()
     {
         soundChill.Play();
         isAngry = false;
+        eyeLook.StartLooking();
     }
 
     private void CheckAnger()
