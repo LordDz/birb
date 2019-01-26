@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 4.0f;
     public ParentToHidables sittingOnEggHidables;
     public TransitionMovement sitOnEggTransition;
+    public Transform sprite;
+
+    private float walkCycle = 0.0f;
 
     private ParentToHidables hidables;
     private Rigidbody rb;
@@ -83,6 +86,20 @@ public class PlayerController : MonoBehaviour
             translation *= movementSpeed * Time.deltaTime;
 
             rb.MovePosition(transform.position + translation);
+
+            if (walkCycle >= 1.0f)
+            {
+                walkCycle -= 1.0f;
+            }
+        }
+        if (walkCycle < 1.0f)
+        {
+            walkCycle += Time.deltaTime * 4.0f;
+            sprite.localPosition = new Vector3(0.0f, 0.4f * Mathf.Abs(Mathf.Sin(walkCycle * Mathf.PI)), 0.0f);
+        }
+        else
+        {
+            walkCycle = 1.0f;
         }
         if (inHatchArea)
         {
