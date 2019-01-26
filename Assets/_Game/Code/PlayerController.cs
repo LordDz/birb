@@ -16,8 +16,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 4.0f;
     public ParentToHidables sittingOnEggHidables;
     public TransitionMovement sitOnEggTransition;
-    public Transform sprite;
-    private SpriteRenderer rendSprite;
+    public Transform spriteTransform;
 
     private float walkCycle = 0.0f;
 
@@ -26,9 +25,9 @@ public class PlayerController : MonoBehaviour
     private bool inHatchArea = false;
     private State state = State.NORMAL;
     private EggLogic egg;
-
-    private bool isCovered = false;
-    public bool IsCovered { get => isCovered; private set => isCovered = value; }
+    private SpriteRenderer sprite;
+    private Pickupable itemInHand;
+    private Pickupable itemAbleToPickup;
 
     // Start is called before the first frame update
     void Start()
@@ -36,11 +35,15 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         hidables = GetComponent<ParentToHidables>();
         egg = GameObject.FindWithTag("Egg").GetComponent<EggLogic>();
-        rendSprite = GetComponentInChildren<SpriteRenderer>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     void OnTriggerStay(Collider target)
     {
+        if (target.tag == "Pickupable")
+        {
+            itemAbleToPickup = target.gameObject.GetComponent<Pickupable>();
+        }
         if (target.tag == "Hatch Area")
         {
             inHatchArea = true;
@@ -49,6 +52,13 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerExit(Collider target)
     {
+        if (target.tag == "Pickupable")
+        {
+            if (target.gameObject == itemAbleToPickup)
+            {
+                itemAbleToPickup = null;
+            }
+        }
         if (target.tag == "Hatch Area")
         {
             inHatchArea = false;
@@ -57,7 +67,10 @@ public class PlayerController : MonoBehaviour
 
     void SitOnEgg()
     {
+        walkCycle = 0.0f;
+        spriteTransform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         state = State.TRANSITION_TO_SITTING_ON_EGG;
+        itemInHand = null;
         hidables.HideAll();
         sitOnEggTransition.StartTransitionForward();
     }
@@ -73,7 +86,10 @@ public class PlayerController : MonoBehaviour
     {
         state = State.TRANSITION_TO_FINISHED;
         sittingOnEggHidables.HideAll();
-        transform.position = egg.transform.position - new Vector3(2.0f, 0.0f, 0.0f);
+        transform.position = new Vector3(
+                egg.transform.position.x - 2.0f,
+                0.0f,
+                egg.transform.position.z + 1.0f);
         sitOnEggTransition.StartTransitionBackward();
     }
 
@@ -84,12 +100,21 @@ public class PlayerController : MonoBehaviour
         
         Vector3 translation = new Vector3(xspeed, 0.0f, yspeed);
 
+        if (xspeed > 0.0f)
+        {
+            sprite.flipX = true;
+        }
+        else if (xspeed < 0.0f)
+        {
+            sprite.flipX = false;
+        }
+
         if (translation.magnitude != 0.0f)
         {
             translation /= translation.magnitude;
 
             translation *= movementSpeed * Time.deltaTime;
-
+            
             rb.MovePosition(transform.position + translation);
 
             if (walkCycle >= 1.0f)
@@ -100,7 +125,7 @@ public class PlayerController : MonoBehaviour
         if (walkCycle < 1.0f)
         {
             walkCycle += Time.deltaTime * 4.0f;
-            sprite.localPosition = new Vector3(0.0f, 0.4f * Mathf.Abs(Mathf.Sin(walkCycle * Mathf.PI)), 0.0f);
+            spriteTransform.localPosition = new Vector3(0.0f, 0.4f * Mathf.Abs(Mathf.Sin(walkCycle * Mathf.PI)), 0.0f);
         }
         else
         {
@@ -113,6 +138,7 @@ public class PlayerController : MonoBehaviour
                 SitOnEgg();
             }
         }
+        UpdateItemInHandPosition();
     }
 
     void UpdateSitOnEgg()
@@ -128,6 +154,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void UpdateItemInHandPosition()
+    {
+        if (itemInHand)
+        {
+            itemInHand.Follow(
+                    spriteTransform.position
+                    + new Vector3(0.0f, 0.5f, -0.25f));
+            if (Input.GetButtonDown("Pick Up"))
+            {
+                itemInHand = null;
+            }
+        }
+        else if (itemAbleToPickup)
+        {
+            if (Input.GetButtonDown("Pick Up"))
+            {
+                itemInHand = itemAbleToPickup;
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -139,6 +186,10 @@ public class PlayerController : MonoBehaviour
         {
             UpdateSitOnEgg();
         }
+        else if (state == State.FINISHED)
+        {
+            sprite.flipX = true;
+        }
         else if (state == State.TRANSITION_TO_SITTING_ON_EGG)
         {
             if (sitOnEggTransition.IsFinished())
@@ -149,6 +200,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (state == State.TRANSITION_TO_NORMAL)
         {
+            sprite.flipX = sitOnEggTransition.positionEnd.position.x < transform.position.x;
             if (sitOnEggTransition.IsFinished())
             {
                 state = State.NORMAL;
@@ -162,19 +214,6 @@ public class PlayerController : MonoBehaviour
                 state = State.FINISHED;
                 hidables.UnhideAll();
             }
-        }
-    }
-
-    public void SetCovered(bool covered)
-    {
-        this.isCovered = covered;
-        if (covered)
-        {
-            rendSprite.material.color = new Color(0.1f, 0.1f, 0.1f);
-        }
-        else
-        {
-            rendSprite.material.color = new Color(1f, 1f, 1f);
         }
     }
 }
