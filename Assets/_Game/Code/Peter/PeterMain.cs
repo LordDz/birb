@@ -6,11 +6,13 @@ public class PeterMain : MonoBehaviour
 {
     private AudioSource audioSource;
     public AudioClip clipInWindow;
+    private EyeLook eyeLook;
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();   
+        audioSource = GetComponent<AudioSource>();
+        eyeLook = GetComponentInChildren<EyeLook>();
     }
 
     // Update is called once per frame
@@ -23,5 +25,6 @@ public class PeterMain : MonoBehaviour
     {
         audioSource.clip = clipInWindow;
         audioSource.Play();
+        eyeLook.SetEnabled();
     }
 }

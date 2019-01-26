@@ -8,23 +8,37 @@ public class EyeLook : MonoBehaviour
     private EyeCollision[] listCollisions;
     public int currentIndex = 0;
     private SpriteRenderer spriteRenderer;
+    private Sprite spriteIdle;
 
     public float timeWait = 0.15f;
     private float cooldownCurrent = 0f;
     private EyeCollision currentCollision;
     private bool shouldLook = true;
-    
+
+    private float cooldownIdle = 0f;
+    public float timeWaitIdle = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         listCollisions = GetComponentsInChildren<EyeCollision>();
         currentCollision = listCollisions[0];
+        spriteIdle = spriteRenderer.sprite;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (cooldownIdle > 0)
+        {
+            cooldownIdle -= Time.deltaTime;
+            if (cooldownIdle <= 0)
+            {
+                StartLooking();
+            }
+        }
+
         if (shouldLook)
         {
             cooldownCurrent -= Time.deltaTime;
@@ -34,6 +48,13 @@ public class EyeLook : MonoBehaviour
                 LookRandom();
             }
         }
+    }
+
+    public void SetEnabled()
+    {
+        cooldownIdle = timeWaitIdle;
+        shouldLook = false;
+        spriteRenderer.sprite = spriteIdle;
     }
 
     public void StartLooking()
