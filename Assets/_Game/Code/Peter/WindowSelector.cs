@@ -46,7 +46,6 @@ public class WindowSelector : MonoBehaviour
         {
             peter.GetComponent<Transform>().gameObject.SetActive(false);
         }
-        StartPeterSelect();
     }
 
     public void StartPeterSelect()
