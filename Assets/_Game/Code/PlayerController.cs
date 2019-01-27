@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public TransitionMovement sitOnEggTransition;
     public Transform spriteTransform;
 
+    public AudioSource walkSound;
+
     private float walkCycle = 0.0f;
 
     private ParentToHidables hidables;
@@ -147,19 +149,24 @@ public class PlayerController : MonoBehaviour
             
             rb.MovePosition(transform.position + translation);
 
-            if (walkCycle >= 1.0f)
+            if (walkCycle == 0.0f)
             {
-                walkCycle -= 1.0f;
+                walkCycle = 1e-6f;
             }
         }
-        if (walkCycle < 1.0f)
+        if (walkCycle > 0.0f)
         {
             walkCycle += Time.deltaTime * 4.0f;
+            if (walkCycle > 1.0f)
+            {
+                walkSound.Play();
+                walkCycle = 0.0f;
+            }
             spriteTransform.localPosition = new Vector3(0.0f, 0.4f * Mathf.Abs(Mathf.Sin(walkCycle * Mathf.PI)), 0.0f);
         }
         else
         {
-            walkCycle = 1.0f;
+            walkCycle = 0.0f;
         }
         if (inHatchArea)
         {
