@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowelContainer : MonoBehaviour
 {
-    Pickupable itemInContainer;
+    Pickupable itemInContainer = null;
 
     public void Give(Pickupable item)
     {
@@ -25,12 +25,19 @@ public class TowelContainer : MonoBehaviour
 
     public void HeatUp(float amount)
     {
-        itemInContainer.HeatUp(amount);
+        if (itemInContainer != null)
+        {
+            itemInContainer.HeatUp(amount);
+        }
     }
 
     public float GetHeat()
     {
-        return itemInContainer.GetHeat();
+        if (itemInContainer != null)
+        {
+            return itemInContainer.GetHeat();
+        }
+        return 0.0f;
     }
 
     // Update is called once per frame

@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider target)
     {
-        itemAbleToPickup = null;
         if (target.tag == "Pickupable")
         {
             if (itemInHand == null)
@@ -54,7 +53,16 @@ public class PlayerController : MonoBehaviour
                 Pickupable item = target.gameObject.GetComponent<Pickupable>();
                 if (!item.HasOwner())
                 {
-                    itemAbleToPickup = item;
+                    float distanceToClosest = float.PositiveInfinity;
+                    if (itemAbleToPickup != null)
+                    {
+                        distanceToClosest = Vector3.Distance(transform.position, itemAbleToPickup.transform.position);
+                    }
+                    float distanceToThis = Vector3.Distance(transform.position, item.transform.position);
+                    if (distanceToThis < distanceToClosest)
+                    {
+                        itemAbleToPickup = item;
+                    }
                 }
             }
         }
@@ -72,7 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         if (target.tag == "Pickupable")
         {
-            if (target.gameObject == itemAbleToPickup)
+            if (target.gameObject.GetComponent<Pickupable>() == itemAbleToPickup)
             {
                 itemAbleToPickup = null;
             }
@@ -188,28 +196,51 @@ public class PlayerController : MonoBehaviour
     void PutItemInContainer(GameObject gameObject)
     {
         TowelContainer[] towelContainers = gameObject.GetComponentsInChildren<TowelContainer>();
+        float closestContainerDistance = float.PositiveInfinity;
+        TowelContainer closestContainer = null;
         foreach (TowelContainer towelContainer in towelContainers)
         {
             if (!towelContainer.HasItem())
             {
-                towelContainer.Give(itemInHand);
-                itemInHand = null;
-                return;
+                float distance = Vector3.Distance(transform.position, towelContainer.transform.position);
+                if (distance < closestContainerDistance)
+                {
+                    closestContainerDistance = distance;
+                    closestContainer = towelContainer;
+                }
             }
         }
-        ReleaseItemInHand();
+        if (closestContainer != null)
+        {
+            closestContainer.Give(itemInHand);
+            itemInHand = null;
+        }
+        else
+        {
+            ReleaseItemInHand();
+        }
     }
 
-    void GetItemFromContainer(GameObject gameObject)
+    void TakeItemFromContainer(GameObject gameObject)
     {
         TowelContainer[] towelContainers = gameObject.GetComponentsInChildren<TowelContainer>();
+        float closestContainerDistance = float.PositiveInfinity;
+        TowelContainer closestContainer = null;
         foreach (TowelContainer towelContainer in towelContainers)
         {
             if (towelContainer.HasItem())
             {
-                itemInHand = towelContainer.Take();
-                break;
+                float distance = Vector3.Distance(transform.position, towelContainer.transform.position);
+                if (distance < closestContainerDistance)
+                {
+                    closestContainerDistance = distance;
+                    closestContainer = towelContainer;
+                }
             }
+        }
+        if (closestContainer != null)
+        {
+            itemInHand = closestContainer.Take();
         }
     }
 
@@ -242,14 +273,15 @@ public class PlayerController : MonoBehaviour
             {
                 itemAbleToPickup.SetOwner();
                 itemInHand = itemAbleToPickup;
+                itemAbleToPickup = null;
             }
             else if (inHatchArea)
             {
-                GetItemFromContainer(egg.gameObject);
+                TakeItemFromContainer(egg.gameObject);
             }
             else if (stoveAbleToUse != null)
             {
-                GetItemFromContainer(stoveAbleToUse);
+                TakeItemFromContainer(stoveAbleToUse);
             }
         }
     }
@@ -299,7 +331,6 @@ public class PlayerController : MonoBehaviour
     public void SetCovered(bool covered)
     {
         this.IsCovered = covered;
-
         if (covered)
         {
             Debug.Log("COVERED");
