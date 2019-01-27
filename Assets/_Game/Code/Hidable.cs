@@ -14,7 +14,7 @@ public class Hidable : MonoBehaviour
 
     public void Hide()
     {
-        transform.localPosition = new Vector3(0.0f, -10.0f, 0.0f);
+        transform.localPosition = new Vector3(0.0f, -20.0f, 0.0f);
         isHiding = true;
     }
 

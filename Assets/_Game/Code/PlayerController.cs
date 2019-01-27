@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     public Transform spriteTransform;
 
     public AudioSource walkSound;
+    public AudioSource pickUpSound;
+    public AudioSource putDownSound;
+    public AudioSource jumpSound;
 
     private float walkCycle = 0.0f;
 
@@ -118,7 +121,7 @@ public class PlayerController : MonoBehaviour
     {
         state = State.TRANSITION_TO_FINISHED;
         sittingOnEggHidables.HideAll();
-        transform.position = new Vector3(
+        transform.localPosition = new Vector3(
                 egg.transform.position.x - 2.0f,
                 0.0f,
                 egg.transform.position.z + 1.0f);

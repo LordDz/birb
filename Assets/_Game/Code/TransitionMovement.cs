@@ -61,7 +61,7 @@ public class TransitionMovement : MonoBehaviour
     {
         if (state == State.FINISHED)
         {
-            transform.position = positionStart.position - new Vector3(0.0f, -10.0f, 0.0f);
+            transform.position = positionStart.position + new Vector3(0.0f, -20.0f, 0.0f);
         }
         else
         {
