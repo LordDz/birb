@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429055285533054051}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.56, y: -1.6600001, z: 0}
+  m_LocalPosition: {x: -0.06, y: -0.44000006, z: -0.54}
   m_LocalScale: {x: 2, y: 0.132, z: 2}
   m_Children:
   - {fileID: 6607213648268468000}
@@ -170,7 +170,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 65.05897, z: 1}
+  m_Size: {x: 0.6, y: 65.05897, z: 0.6}
   m_Center: {x: 0, y: 11.554477, z: 0}
 --- !u!114 &3297525329921580196
 MonoBehaviour:
@@ -211,7 +211,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2748107297655199786}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.23, y: 1.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -257,8 +257,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f6725363b9060194f8ba3b58300f8f9d, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 288dc042e23051745928ebad0379cbe6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -325,7 +325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6772672695744322627}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.85, y: -1.6600001, z: 0}
+  m_LocalPosition: {x: 26.56, y: -0.44000006, z: 0}
   m_LocalScale: {x: 2, y: 0.132, z: 2}
   m_Children:
   - {fileID: 180695006313438095}
@@ -388,7 +388,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 65.05897, z: 1}
+  m_Size: {x: 0.6, y: 65.05897, z: 0.6}
   m_Center: {x: 0, y: 11.554477, z: 0}
 --- !u!114 &7836021469511318948
 MonoBehaviour:
@@ -431,7 +431,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7109960841729272413}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.12, y: -1.66, z: 0}
+  m_LocalPosition: {x: 26.53, y: -0.44, z: 0}
   m_LocalScale: {x: 2, y: 0.132, z: 2}
   m_Children:
   - {fileID: 1486994399430680317}
@@ -494,7 +494,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 65.05897, z: 1}
+  m_Size: {x: 0.6, y: 65.05897, z: 0.6}
   m_Center: {x: 0, y: 11.554477, z: 0}
 --- !u!114 &1412055507749921079
 MonoBehaviour:
