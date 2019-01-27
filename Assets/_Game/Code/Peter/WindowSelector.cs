@@ -48,7 +48,7 @@ public class WindowSelector : MonoBehaviour
         isInited = true;
         foreach (PeterMain peter in listPeters)
         {
-            peter.GetComponent<Transform>().gameObject.SetActive(false);
+            //peter.GetComponent<Transform>().gameObject.SetActive(false);
         }
     }
 
@@ -63,7 +63,7 @@ public class WindowSelector : MonoBehaviour
     {
         isSelectingPeter = false;
         peterCurrent = listPeters[Random.Range(0, listPeters.Length - 1)];
-        peterCurrent.GetComponent<Transform>().gameObject.SetActive(true);
+        //peterCurrent.GetComponent<Transform>().gameObject.SetActive(true);
         peterCurrent.SetEnabled();
         for (var i = 0; i < listProps.Length; i++)
         {

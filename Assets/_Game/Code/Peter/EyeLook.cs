@@ -11,6 +11,7 @@ public class EyeLook : MonoBehaviour
     public int currentIndex = 0;
     private SpriteRenderer spriteRenderer;
     private Sprite spriteIdle;
+    private PeterHead peterHead;
 
     public float timeWait = 0.15f;
     private float cooldownCurrent = 0f;
@@ -31,13 +32,15 @@ public class EyeLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        peterHead = GetComponentInChildren<PeterHead>();
         flyManager = GameObject.FindObjectOfType<FlyManager>();
         PeterEatBehaviour = GetComponentInParent<PeterEatBehaviour>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         listCollisions = GetComponentsInChildren<EyeCollision>();
         currentCollision = listCollisions[0];
         spriteIdle = spriteRenderer.sprite;
         timeTotalRange = Random.Range(totalMin, totalMax);
+        StopLooking();
     }
 
     // Update is called once per frame
@@ -79,7 +82,7 @@ public class EyeLook : MonoBehaviour
         shouldLook = false;
         cooldownIdle = timeWaitIdle;
         spriteRenderer.sprite = spriteIdle;
-        spriteRenderer.enabled = true;
+        peterHead.Reveal();
     }
 
     public void StartLooking()
@@ -146,7 +149,7 @@ public class EyeLook : MonoBehaviour
         {
             eyeCollision.StopLook();
         }
-        spriteRenderer.enabled = false;
+        peterHead.Hide();
         flyManager.DoNewFlyBy();
     }
 }
