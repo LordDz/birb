@@ -16,6 +16,10 @@ public class FlyManager : MonoBehaviour
 
     private float roundCooldown = 0f;
     public float timePerRound = 2f;
+    private AudioSource musicAudio;
+    public AudioClip musicFly;
+    public AudioClip musicChill;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +27,7 @@ public class FlyManager : MonoBehaviour
         listFlyGroups = GetComponentsInChildren<SpawnFlyGroup>();
         listSpawns = listFlyGroups[0].GetComponentsInChildren<SpawnPosGroup>();
         WindowSelector = GameObject.FindObjectOfType<WindowSelector>();
+        musicAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -48,6 +53,9 @@ public class FlyManager : MonoBehaviour
             roundCooldown -= Time.deltaTime;
             if (roundCooldown <= 0)
             {
+                musicAudio.Stop();
+                musicAudio.clip = musicFly;
+                musicAudio.Play();
                 flyBird.StartFlying();
             }
         }
@@ -59,6 +67,9 @@ public class FlyManager : MonoBehaviour
         flyBird.SpawnAtStart(listSpawns[0].FlyFrom, listSpawns[0].FlyTo, listSpawns[0].ToLeft);
         roundCooldown = timePerRound;
         WindowSelector.HideAllCoverFromProps();
+        musicAudio.Stop();
+        musicAudio.clip = musicChill;
+        musicAudio.Play();
     }
 
     public void BirdHasReachedEnd()
@@ -71,6 +82,7 @@ public class FlyManager : MonoBehaviour
         else
         {
             flyIndex = 0;
+            musicAudio.Stop();
             WindowSelector.StartPeterSelect();
         }
     }
