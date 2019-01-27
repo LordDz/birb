@@ -7,6 +7,7 @@ public class Pickupable : MonoBehaviour
     private float heat = 0.0f;
     private float baseY;
     private Vector3? toFollow;
+    private Quaternion toFollowRotation;
     private bool hasOwner = false;
 
     private SpriteRenderer sprite;
@@ -18,9 +19,10 @@ public class Pickupable : MonoBehaviour
         sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
-    public void Follow(Vector3 position)
+    public void Follow(Vector3 position, Quaternion rotation)
     {
         toFollow = position;
+        toFollowRotation = rotation;
     }
 
     public bool HasOwner()
@@ -69,6 +71,7 @@ public class Pickupable : MonoBehaviour
             {
                 transform.position += limit * translation / (translation.magnitude);
             }
+            transform.rotation = toFollowRotation;
             toFollow = null;
         }
         else

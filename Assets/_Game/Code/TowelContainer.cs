@@ -47,7 +47,8 @@ public class TowelContainer : MonoBehaviour
         {
             itemInContainer.Follow(
                     transform.position
-                    + new Vector3(0.0f, 0.0f, -0.25f));
+                    + new Vector3(0.0f, 0.0f, -0.25f),
+                    transform.rotation);
         }
     }
 }
