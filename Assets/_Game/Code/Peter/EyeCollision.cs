@@ -44,20 +44,15 @@ public class EyeCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (isActive && other.tag == "Player")
         {
-            Debug.Log("aaaarrr ! " + other.tag);
-
-            //"Become angry"
-            
             if (player.IsCovered == false)
             {
+                //"Become angry"
                 rend.material = eyeLook.materialDetected;
                 Debug.Log("Detected Player!");
                 PeterEatBehaviour.StartBecomeAngry();
             }
-            
         }
     }
 

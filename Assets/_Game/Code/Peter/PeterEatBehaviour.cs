@@ -10,9 +10,9 @@ public class PeterEatBehaviour : MonoBehaviour
     public bool IsAngry { get { return isAngry; } }
     private bool isAngry = false;
     private bool killMode = false;
-    public AudioSource soundAngry;
-    public AudioSource soundChill;
-    public AudioSource soundKillMode;
+    private AudioSource audioSource;
+    public AudioClip clipAngry;
+    public AudioClip clipKillMode;
     private PlayerController player;
     public LoseShow loseShow;
 
@@ -21,6 +21,7 @@ public class PeterEatBehaviour : MonoBehaviour
     void Start()
     {
         eyeLook = GetComponentInChildren<EyeLook>();
+        audioSource = GetComponent<AudioSource>();
         player = GameObject.FindObjectOfType<PlayerController>();
     }
 
@@ -33,7 +34,7 @@ public class PeterEatBehaviour : MonoBehaviour
             {
                 angerMeter -= Time.deltaTime;
             }
-            else if (isAngry)
+            else if (isAngry && player.IsCovered == false)
             {
                 angerMeter += Time.deltaTime;
             }
@@ -43,20 +44,25 @@ public class PeterEatBehaviour : MonoBehaviour
 
     public void StartBecomeAngry()
     {
-        soundAngry.Play();
+        audioSource.clip = clipAngry;
+        audioSource.Play();
         isAngry = true;
         eyeLook.StopLooking();
     }
 
     public void StopBecomeAngry()
     {
-        soundChill.Play();
         isAngry = false;
         eyeLook.StartLooking();
     }
 
     private void CheckAnger()
     {
+        if (player.IsCovered && isAngry)
+        {
+            StopBecomeAngry();
+        }
+
         if (angerMeter >= angerKillLevel)
         {
             //KILL BIRB NAOW!
@@ -69,7 +75,8 @@ public class PeterEatBehaviour : MonoBehaviour
     {
         //It's game over man, game over!
         killMode = true;
-        soundKillMode.Play();
+        audioSource.clip = clipKillMode;
+        audioSource.Play();
         player.SetDead(true);
         loseShow.ShowLose();
         

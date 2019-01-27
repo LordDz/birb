@@ -6,11 +6,13 @@ public class LoseShow : MonoBehaviour
 {
     private AudioSource musicDefeat;
     private WindowSelector windowSelector;
+    private SittingBirbSpriteFlipper sittingBirbSpriteFlipper;
     // Start is called before the first frame update
     void Start()
     {
         musicDefeat = GetComponent<AudioSource>();
         windowSelector = GameObject.FindObjectOfType<WindowSelector>();
+        sittingBirbSpriteFlipper = GameObject.FindObjectOfType<SittingBirbSpriteFlipper>();
         this.gameObject.SetActive(false);
     }
 
@@ -23,6 +25,7 @@ public class LoseShow : MonoBehaviour
     public void ShowLose()
     {
         this.gameObject.SetActive(true);
+        sittingBirbSpriteFlipper.gameObject.SetActive(false);
         if (windowSelector != null)
         {
             windowSelector.HideAllCoverFromProps();
