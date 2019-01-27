@@ -19,7 +19,6 @@ public class PeterMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void SetEnabled()
