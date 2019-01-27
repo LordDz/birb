@@ -6,7 +6,7 @@ public class ParentToHidables : MonoBehaviour
 {
     public bool hidingAtStart;
 
-    private Component[] hidables;
+    private Hidable[] hidables;
 
     // Start is called before the first frame update
     void Start()
