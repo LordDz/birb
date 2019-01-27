@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
         state = State.TRANSITION_TO_SITTING_ON_EGG;
         ReleaseItemInHand();
         hidables.HideAll();
+        jumpSound.Play();
         sitOnEggTransition.StartTransitionForward();
     }
 
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour
         state = State.TRANSITION_TO_NORMAL;
         sittingOnEggHidables.HideAll();
         sitOnEggTransition.StartTransitionBackward();
+        jumpSound.Play();
     }
 
     void HatchEgg()
@@ -200,6 +202,7 @@ public class PlayerController : MonoBehaviour
         {
             itemInHand.UnsetOwner();
             itemInHand = null;
+            putDownSound.Play();
         }
     }
 
@@ -224,6 +227,7 @@ public class PlayerController : MonoBehaviour
         {
             closestContainer.Give(itemInHand);
             itemInHand = null;
+            putDownSound.Play();
         }
         else
         {
@@ -251,6 +255,7 @@ public class PlayerController : MonoBehaviour
         if (closestContainer != null)
         {
             itemInHand = closestContainer.Take();
+            pickUpSound.Play();
         }
     }
 
@@ -285,6 +290,7 @@ public class PlayerController : MonoBehaviour
                 itemAbleToPickup.SetOwner();
                 itemInHand = itemAbleToPickup;
                 itemAbleToPickup = null;
+                pickUpSound.Play();
             }
             else if (inHatchArea)
             {
