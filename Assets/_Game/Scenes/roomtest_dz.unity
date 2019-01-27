@@ -1888,7 +1888,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 27e43f1ccfe574745ab14661b2e67e1b, type: 2}
+  - {fileID: 2100000, guid: aa6aca80c80ad6f4c9d1c2ca29149692, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4562,6 +4562,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1916196835, guid: 819b3cc93b46971409d4b5cfb6b7df00, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -64.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 819b3cc93b46971409d4b5cfb6b7df00, type: 3}
 --- !u!4 &1038415177 stripped
@@ -6423,7 +6427,7 @@ PrefabInstance:
     - target: {fileID: 5969047266393988564, guid: 98481f956a78e4205b77060812951fcc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.29
+      value: 1.17
       objectReference: {fileID: 0}
     - target: {fileID: 5969047266393988564, guid: 98481f956a78e4205b77060812951fcc,
         type: 3}
@@ -6469,17 +6473,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5969047266393988570, guid: 98481f956a78e4205b77060812951fcc,
-        type: 3}
-      propertyPath: smoke
-      value: 
-      objectReference: {fileID: 6059719446394205951, guid: 63a582e15c2b8422fb9b57a32f512b12,
-        type: 3}
-    - target: {fileID: 5969047266859995636, guid: 98481f956a78e4205b77060812951fcc,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98481f956a78e4205b77060812951fcc, type: 3}
@@ -8653,7 +8646,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.17
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
