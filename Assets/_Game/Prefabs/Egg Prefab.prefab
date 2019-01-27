@@ -886,6 +886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1008324862434581222}
   - component: {fileID: 1438163944624031053}
+  - component: {fileID: 5593128545020585920}
   m_Layer: 0
   m_Name: Baby Jaw
   m_TagString: Untagged
@@ -955,3 +956,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5593128545020585920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7604373876435903539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d01cc545aad284d5d9c8d7886074f9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
