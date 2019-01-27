@@ -14,6 +14,7 @@ public class EggLogic : MonoBehaviour
     private float twiggleTimer = 0.0f;
     private SpriteRenderer sprite;
     private int spriteIndex;
+    private WinShow winShow;
 
     private Vector3 eggOriginPosition;
 
@@ -21,6 +22,7 @@ public class EggLogic : MonoBehaviour
     {
         eggOriginPosition = eggTransform.position;
         GameObject go = GameObject.FindWithTag("Egg Shell");
+        winShow = GameObject.FindObjectOfType<WinShow>();
         sprite = go.GetComponentInChildren<SpriteRenderer>();
         startTime = timeToHatch;
     }
@@ -46,6 +48,7 @@ public class EggLogic : MonoBehaviour
         {
             eggHidable.HideAll();
             babyHidable.UnhideAll();
+            winShow.ShowVictory();
         }
     }
 
