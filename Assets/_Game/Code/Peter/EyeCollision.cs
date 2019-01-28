@@ -10,7 +10,10 @@ public class EyeCollision : MonoBehaviour
     private bool isActive = false;
     private EyeLook eyeLook;
     private PlayerController player;
-
+	private Vector4 angryColor = new Vector4(2,0,0,1);
+	private Vector4 okColor = new Vector4(1,1,0,1);
+	private float angerFuryStartTime = -1;
+	
     void Start()
     {
         rend = GetComponent<MeshRenderer>();
@@ -31,6 +34,7 @@ public class EyeCollision : MonoBehaviour
     {
         rend.enabled = true;
         isActive = true;
+		rend.material.color = okColor;
         this.GetComponent<Collider>().enabled = true;
     }
 
@@ -38,7 +42,6 @@ public class EyeCollision : MonoBehaviour
     {
         rend.enabled = false;
         isActive = false;
-        rend.material = eyeLook.materialOk;
         this.GetComponent<Collider>().enabled = false;
     }
 
@@ -49,7 +52,6 @@ public class EyeCollision : MonoBehaviour
             if (player.IsCovered == false)
             {
                 //"Become angry"
-                rend.material = eyeLook.materialDetected;
                 Debug.Log("Detected Player!");
                 PeterEatBehaviour.StartBecomeAngry();
             }
@@ -61,7 +63,40 @@ public class EyeCollision : MonoBehaviour
         if (isActive && other.tag == "Player")
         {
             PeterEatBehaviour.StopBecomeAngry();
-            rend.material = eyeLook.materialOk;
         }
     }
+	
+    private void OnTriggerStay(Collider other)
+    {
+        if (isActive && other.tag == "Player")
+        {
+            if (player.IsCovered == false)
+            {
+				float blinkIntensity=0.75f;
+				
+				float lerpDone=0.25f;
+				float startBlink=0.5f;
+				float angerPercent=Mathf.Clamp01(PeterEatBehaviour.angerMeter/PeterEatBehaviour.angerKillLevel);
+				float lerpPercent=Mathf.Clamp01(angerPercent+(1-lerpDone)*angerPercent);
+				
+				Vector4 rendColor=Vector4.Lerp(okColor,angryColor,lerpPercent);
+				float intensity = 1.0f;
+				if(angerPercent>startBlink)
+				{
+					//Offset time so blink starts in correct phase
+					if(angerFuryStartTime==-1)
+					{
+						angerFuryStartTime=Time.time;
+					}
+					float blinkTime=Time.time-angerFuryStartTime;
+					float speed=25;
+					float blink=(Mathf.Sin(blinkTime*speed)+1)/2;
+					
+					intensity = Mathf.Lerp(1,blinkIntensity,blink);
+				}
+				
+				rend.material.color=rendColor;
+				rend.material.SetFloat("_Intensity", intensity);			}
+		}
+	}		
 }
