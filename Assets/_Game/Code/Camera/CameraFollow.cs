@@ -17,17 +17,18 @@ public class CameraFollow : MonoBehaviour
     void FollowObject()
     {
         float followX = objectToFollow.transform.position.x;
-        if (followX > transform.position.x + 2.5f)
+        float margin = 1.0f;
+        if (followX > transform.position.x + margin)
         {
             transform.position = new Vector3(
-                    followX - 2.5f,
+                    followX - margin,
                     originalPosition.y,
                     originalPosition.z);
         }
-        else if (followX < transform.position.x - 2.5f)
+        else if (followX < transform.position.x - margin)
         {
             transform.position = new Vector3(
-                    followX + 2.5f,
+                    followX + margin,
                     originalPosition.y,
                     originalPosition.z);
         }
