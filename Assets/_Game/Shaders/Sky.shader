@@ -62,10 +62,11 @@
 			fixed4 c = float4(0,0,0,1);
 			float2 fuv=uv*float2(2,2);
 			float fspeed=125.0;
-			float f1 = tex2D (_Feathers, fuv+float2(t*-0.5,t*fspeed*1)).r;
-			float f2 = tex2D (_Feathers, fuv+float2(t*1.4,t*fspeed*1.2)).g;
-			float f3 = tex2D (_Feathers, fuv+float2(t*-2,t*fspeed*1.4)).b;
-			float f4 = tex2D (_Feathers, fuv+float2(t,t*fspeed*1.6)).a;
+			float fHspeed=20;
+			float f1 = tex2D (_Feathers, fuv+float2(t*-0.5*fHspeed,t*fspeed*1)).r;
+			float f2 = tex2D (_Feathers, fuv+float2(t*1.4*fHspeed,t*fspeed*1.2)).g;
+			float f3 = tex2D (_Feathers, fuv+float2(t*-2*fHspeed,t*fspeed*1.4)).b;
+			float f4 = tex2D (_Feathers, fuv+float2(t*fHspeed,t*fspeed*1.6)).a;
 			
 			float feathers=saturate(f1+f2+f3+f4);
 			c.rgb = lerp(l+float3(0.2,0.2,0.4),d-feathers,_Peter);

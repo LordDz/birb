@@ -83,7 +83,7 @@ public class EyeCollision : MonoBehaviour
 				float intensity = 1.0f;
 				if(angerPercent>startBlink)
 				{
-					//Offset time so blink starts in correct phase
+					//Offset time so blink starts in correct phase/fades in
 					if(angerFuryStartTime==-1)
 					{
 						angerFuryStartTime=Time.time;
@@ -93,10 +93,12 @@ public class EyeCollision : MonoBehaviour
 					float blink=(Mathf.Sin(blinkTime*speed)+1)/2;
 					
 					intensity = Mathf.Lerp(1,blinkIntensity,blink);
+					rendColor=Vector4.Scale(rendColor,new Vector4(1,1,1,1-blink/2));
 				}
 				
 				rend.material.color=rendColor;
-				rend.material.SetFloat("_Intensity", intensity);			}
+				rend.material.SetFloat("_Intensity", intensity);			
+			}
 		}
 	}		
 }
