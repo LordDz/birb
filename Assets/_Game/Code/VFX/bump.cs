@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bump : MonoBehaviour
 {
-	private float animPercent=0;
+	//private float animPercent=0;
 	private bool bumped = false;
 	private bool nudged = false;
 	private Vector3 initialPos;

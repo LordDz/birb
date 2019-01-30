@@ -31,9 +31,14 @@ public class PlayerController : MonoBehaviour
     private State state = State.NORMAL;
     private EggLogic egg;
     private SpriteRenderer sprite;
-    private Pickupable itemInHand;
+    public Pickupable itemInHand;
     private Pickupable itemAbleToPickup;
     private GameObject stoveAbleToUse;
+	public bool tutorialIsOnOrTransitioningToEgg = false;
+	public bool tutorialHasSatOnEgg = false;
+	public bool tutorialHasPlacedTovelOnStove = false;
+	public bool tutorialHasPlacedHeatedTovelOnEgg = false;
+	public bool tutorialIsCovered = false;
 
 
     private bool isCovered = false;
@@ -109,6 +114,7 @@ public class PlayerController : MonoBehaviour
         hidables.HideAll();
         jumpSound.Play();
         sitOnEggTransition.StartTransitionForward();
+		tutorialHasSatOnEgg=true;
     }
 
     void JumpOffEgg()
@@ -225,7 +231,23 @@ public class PlayerController : MonoBehaviour
         }
         if (closestContainer != null)
         {
-            closestContainer.Give(itemInHand);
+			if(gameObject == stoveAbleToUse)
+			{
+				tutorialHasPlacedTovelOnStove = true;
+			}
+			else if(gameObject == egg.gameObject && !tutorialHasPlacedHeatedTovelOnEgg && tutorialHasPlacedTovelOnStove)
+			{
+				if(itemInHand.GetHeat()>0)
+				{
+					tutorialHasPlacedHeatedTovelOnEgg = true;
+				}
+				//else
+				//{
+				//	tutorialHasPlacedTovelOnStove = false;
+				//}
+			}
+			
+			closestContainer.Give(itemInHand);
             itemInHand = null;
             putDownSound.Play();
         }
@@ -306,12 +328,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		tutorialIsOnOrTransitioningToEgg=false;
+		
         if (state == State.NORMAL)
         {
             UpdateNormal();
         }
         else if (state == State.SITTING_ON_EGG)
         {
+			tutorialIsOnOrTransitioningToEgg=true;
             UpdateSitOnEgg();
         }
         else if (state == State.FINISHED)
@@ -320,6 +345,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (state == State.TRANSITION_TO_SITTING_ON_EGG)
         {
+			tutorialIsOnOrTransitioningToEgg=true;
             if (sitOnEggTransition.IsFinished())
             {
                 state = State.SITTING_ON_EGG;
@@ -348,6 +374,8 @@ public class PlayerController : MonoBehaviour
     public void SetCovered(bool covered)
     {
         this.IsCovered = covered;
+		tutorialIsCovered=covered;
+		
         if (covered)
         {
             Debug.Log("COVERED");
