@@ -19,6 +19,9 @@ public class FlyManager : MonoBehaviour
     private AudioSource musicAudio;
     public AudioClip musicFly;
     public AudioClip musicChill;
+	
+	public bool birdIsActive = false;
+	public bool birdIsApproaching = false;
 
 
     // Start is called before the first frame update
@@ -50,6 +53,8 @@ public class FlyManager : MonoBehaviour
 
         if (roundCooldown > 0f)
         {
+			birdIsActive=false;
+			
             roundCooldown -= Time.deltaTime;
             if (roundCooldown <= 0)
             {
@@ -57,6 +62,8 @@ public class FlyManager : MonoBehaviour
                 musicAudio.clip = musicFly;
                 musicAudio.Play();
                 flyBird.StartFlying();
+				birdIsActive=true;
+				birdIsApproaching=true;
             }
         }
     }
@@ -84,6 +91,7 @@ public class FlyManager : MonoBehaviour
             flyIndex = 0;
             musicAudio.Stop();
             WindowSelector.StartPeterSelect();
+			birdIsApproaching=false;
         }
     }
 

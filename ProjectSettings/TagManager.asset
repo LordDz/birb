@@ -11,6 +11,7 @@ TagManager:
   - Egg Shell
   - Pickupable
   - Stove
+  - Cover
   layers:
   - Default
   - TransparentFX

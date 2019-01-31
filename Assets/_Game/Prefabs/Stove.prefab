@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5969047266859995639}
   - component: {fileID: 5969047266859995636}
+  - component: {fileID: 7602603041818135158}
   m_Layer: 0
   m_Name: Stove Sprite
   m_TagString: Untagged
@@ -245,6 +246,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &7602603041818135158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5969047266859995638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100d8122eb8d2c54f9310c531d3f6fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 1ef42373efdb04a5088adef2c6e910eb, type: 3}
+  - {fileID: 21300000, guid: a51400c0b847ec34aad9a07e321be533, type: 3}
+  - {fileID: 21300000, guid: dbd78af52b972d44bbc33619ebcfe8a7, type: 3}
+  - {fileID: 21300000, guid: 743fa45db1b2a274189ad3aca6ba5e7a, type: 3}
+  - {fileID: 21300000, guid: 69c3e00e4a18bfc4697c19d31fd1f66f, type: 3}
+  fps: 12
 --- !u!1 &5969047268229601845
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class WindowSelector : MonoBehaviour
     public float timeToSelectPeter = 1f;
     private float timeSelectCooldown = 0f;
 
-    private bool isSelectingPeter = false;
+    public bool isSelectingPeter = false;
     private CameraShake cameraShake;
     private Prop[] listProps;
     private PlayerController player;
