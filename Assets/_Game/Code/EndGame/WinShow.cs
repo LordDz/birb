@@ -7,6 +7,7 @@ public class WinShow : MonoBehaviour
     private AudioSource musicVictory;
     private WindowSelector windowSelector;
     private SittingBirbSpriteFlipper sittingBirbSpriteFlipper;
+    private PlayerController playerController;
     private bool hasWon = false;
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,7 @@ public class WinShow : MonoBehaviour
         musicVictory = GetComponent<AudioSource>();
         windowSelector = GameObject.FindObjectOfType<WindowSelector>();
         sittingBirbSpriteFlipper = GameObject.FindObjectOfType<SittingBirbSpriteFlipper>();
+        playerController = GameObject.FindObjectOfType<PlayerController>();
         this.gameObject.SetActive(false);
     }
 
@@ -32,6 +34,8 @@ public class WinShow : MonoBehaviour
         hasWon = true;
         this.gameObject.SetActive(true);
         sittingBirbSpriteFlipper.gameObject.SetActive(false);
+        playerController.SetDead(true);
+
         if (windowSelector != null)
         {
             windowSelector.HideAllCoverFromProps();

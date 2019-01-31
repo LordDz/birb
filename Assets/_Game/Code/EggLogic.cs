@@ -14,7 +14,8 @@ public class EggLogic : MonoBehaviour
     private float twiggleTimer = 0.0f;
     private SpriteRenderer sprite;
     private int spriteIndex;
-    private WinShow winShow;
+    public WinShow winShow;
+    private bool isGameDone = false;
 
     private Vector3 eggOriginPosition;
 
@@ -22,7 +23,6 @@ public class EggLogic : MonoBehaviour
     {
         eggOriginPosition = eggTransform.position;
         GameObject go = GameObject.FindWithTag("Egg Shell");
-        winShow = GameObject.FindObjectOfType<WinShow>();
         sprite = go.GetComponentInChildren<SpriteRenderer>();
         startTime = timeToHatch;
     }
@@ -44,8 +44,9 @@ public class EggLogic : MonoBehaviour
     {
         float multiplier = HatchTimerMultiplier();
         timeToHatch -= Time.deltaTime * multiplier;
-        if (HasHatched())
+        if (isGameDone == false && HasHatched())
         {
+            isGameDone = true;
             eggHidable.HideAll();
             babyHidable.UnhideAll();
             winShow.ShowVictory();
@@ -54,6 +55,7 @@ public class EggLogic : MonoBehaviour
 
     public bool HasHatched()
     {
+        //return true; //UNCOMMENT THIS TO MAKE FOR AN EASY WIN!
         return timeToHatch < 0.0f;
     }
 
