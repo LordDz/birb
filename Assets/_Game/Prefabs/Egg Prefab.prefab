@@ -915,7 +915,7 @@ Transform:
   m_GameObject: {fileID: 2131427171861784101}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4210819156115653656}
   m_RootOrder: 2
@@ -983,6 +983,8 @@ MonoBehaviour:
   fade: 0
   fadeIn: 0
   speed: 3
+  run: 1
+  blink: 0
 --- !u!1 &2809390265703520196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,6 +1114,8 @@ MonoBehaviour:
   fade: 0
   fadeIn: 0
   speed: 3
+  run: 1
+  blink: 0
 --- !u!1 &7604373876435903539
 GameObject:
   m_ObjectHideFlags: 0

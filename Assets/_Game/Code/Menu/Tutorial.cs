@@ -55,13 +55,20 @@ public class Tutorial : MonoBehaviour
 	private string hidingSpotName = "Cover";
 	private List<GameObject> hidingSpots = new List<GameObject>();
 	
+	void Awake()
+	{
+				hidingSpots.AddRange(GameObject.FindGameObjectsWithTag(hidingSpotName));
+				this.enabled=false;
+	}
 	
-    // Start is called before the first frame update
+    
     void Start()
     {
+		
 		startTime = Time.time;
 		
 		hidingSpots.AddRange(GameObject.FindGameObjectsWithTag(hidingSpotName));
+		
 		float ci=0;
 		foreach (GameObject go in hidingSpots)
 		{
@@ -213,10 +220,9 @@ public class Tutorial : MonoBehaviour
 			{
 				spriteFadeInOut cover = go.GetComponent<spriteFadeInOut>();
 				
-				cover.blink = false;				
-				cover.run = false;
+				cover.blink = false;
 				cover.fade = 1;
-				
+				cover.run = false;
 			}
 			
 			hidingSpotDone = true;
