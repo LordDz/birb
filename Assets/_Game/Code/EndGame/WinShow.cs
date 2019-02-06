@@ -41,5 +41,10 @@ public class WinShow : MonoBehaviour
             windowSelector.HideAllCoverFromProps();
         }
         musicVictory.Play();
+		GameObject.Find("PeterHead").SetActive(false);
+		GameObject.Find("FlyManager").SetActive(false);
+		GameObject.Find("WindowSelector").SetActive(false);
+		GameObject.Find("Reload").GetComponent<reloadScene>().reload();
+		
     }
 }

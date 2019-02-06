@@ -17,6 +17,7 @@ public class MenuSingelton : MonoBehaviour
         }
         else if (Instance != this)
         {
+			GameObject.Find("startGame").GetComponent<startGamePrep>().prep();
             Destroy (gameObject);
         }
       }

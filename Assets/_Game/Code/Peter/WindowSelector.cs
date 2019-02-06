@@ -62,7 +62,12 @@ public class WindowSelector : MonoBehaviour
     private void SetRandomPeter()
     {
         isSelectingPeter = false;
-        peterCurrent = listPeters[Random.Range(0, listPeters.Length - 1)];
+		// Random.Range returns MAX-1, ie does not include the range's MAX number. 
+		// So use +1 if it should be included. 
+		// Since this is an array, we obviously settle for the array length
+		// https://docs.unity3d.com/ScriptReference/Random.Range.html
+        peterCurrent = listPeters[Random.Range(0, listPeters.Length)];
+		
         //peterCurrent.GetComponent<Transform>().gameObject.SetActive(true);
         peterCurrent.SetEnabled();
         for (var i = 0; i < listProps.Length; i++)

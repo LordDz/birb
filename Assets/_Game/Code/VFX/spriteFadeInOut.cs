@@ -36,10 +36,10 @@ public class spriteFadeInOut : MonoBehaviour
 
     void Update()
     {
-		if(gameObject.name == "Cover")
-		{
-			Debug.Log(blink);
-		}
+		//if(gameObject.name == "Cover")
+		//{
+		//	Debug.Log(blink);
+		//}
 		if(run)
 		{	
 			if(Time.time >= initTime+delay)

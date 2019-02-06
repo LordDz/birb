@@ -7,12 +7,15 @@ public class LoseShow : MonoBehaviour
     private AudioSource musicDefeat;
     private WindowSelector windowSelector;
     private SittingBirbSpriteFlipper sittingBirbSpriteFlipper;
+	private GameObject reload;
+	
     // Start is called before the first frame update
     void Start()
     {
         musicDefeat = GetComponent<AudioSource>();
         windowSelector = GameObject.FindObjectOfType<WindowSelector>();
         sittingBirbSpriteFlipper = GameObject.FindObjectOfType<SittingBirbSpriteFlipper>();
+		reload=GameObject.Find("Reload");
         this.gameObject.SetActive(false);
     }
 
@@ -31,5 +34,7 @@ public class LoseShow : MonoBehaviour
             windowSelector.HideAllCoverFromProps();
         }
         musicDefeat.Play();
+		GameObject.Find("Egg").SetActive(false);
+		reload.GetComponent<reloadScene>().reload();
     }
 }

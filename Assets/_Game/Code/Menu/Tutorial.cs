@@ -73,6 +73,7 @@ public class Tutorial : MonoBehaviour
 		foreach (GameObject go in hidingSpots)
 		{
 			spriteFadeInOut cover = go.GetComponent<spriteFadeInOut>();
+			cover.fade = 0;
 			cover.run = true;
 			cover.blink = true;
 			cover.speed = 2;

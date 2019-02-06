@@ -31,7 +31,9 @@ public class startGameFromMenu : MonoBehaviour
 				{
 					go.SetActive(true);
 				}
+				
 				tutorial.GetComponent<Tutorial>().enabled=true;
+				GameObject.Find("startGame").GetComponent<startGamePrep>().prep();				
 				gameObject.SetActive(false);
 			}
 		}

@@ -95,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fade: 0
   fadeIn: 0
-  speed: 2
+  speed: 3
   run: 1
   blink: 0
   delay: 0
